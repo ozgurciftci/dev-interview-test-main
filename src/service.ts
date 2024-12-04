@@ -5,7 +5,6 @@ export const getPrices = async (db: Db) => {
     return await db.collection('prices').find().toArray();
 }
 
-// Create a second averagePrices GET REST API which uses the MongoDB Aggregation API to group documents by their 'symbol' and calculate the average price, returning the results to the caller as an array of JSON documents, each containing the symbol and the average price. 4 documents should be returned from each call to the API.
 
 export const averagePrices = async (db: Db) => {
     const results = await db.collection('prices').aggregate([
@@ -44,7 +43,6 @@ const enhanceWithCurrentPrices = async (results: any[]) => {
             await delay(1000); // Rate limit: 1 call per second
         } catch (error) {
             console.error(`Error fetching current price for symbol ${result.symbol}:`, error);
-            // You could choose to push a partial result or skip
             enhancedResults.push({
                 symbol: result.symbol,
                 averagePrice: result.averagePrice,
