@@ -30,9 +30,9 @@ export const averagePrices = async (db: Db) => {
 const enhanceWithCurrentPrices = async (results: any[]) => {
     const enhancedResults = [];
     for (const result of results) {
-        const min = result.averagePrice - 5;
-        const max = result.averagePrice + 5;
-
+        const min = parseInt(result.averagePrice) - 5;
+        const max = parseInt(result.averagePrice) + 5;
+        console.log('min: ', min, 'max: ', max);
         try {
             const currentPrice = await fetchCurrentPrice(min, max);
             enhancedResults.push({
